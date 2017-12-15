@@ -9,18 +9,24 @@
 
 (defn extract-JSON
   [response-body]
-  (get (json/read-str response-body) "value1"))
-
+  (println (json/read-str response-body)))
 
 (defn get-endpoint
   "get api endpoint"
   [endpoint]
-  (println (client/get endpoint)))
+    (:body
+      (client/get endpoint)))
+
+(defn process-endpoint
+  [url]
+  (println
+    (extract-JSON
+      (get-endpoint url))))
 
 (defn -main
   []
   (foo "Ali")
-  (get-endpoint "https://edualize.herokuapp.com/api/v1/median_expenditures/totals"))
+  (process-endpoint "https://edualize.herokuapp.com/api/v1/median_expenditures/totals"))
 
 
 (-main)
